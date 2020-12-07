@@ -55,3 +55,24 @@ body {
   border-radius: 50%;
   background-color: red;
 } */
+
+.tomato-container {
+  background-image: url("./img/tomato.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  height: 50px;
+  width: 50px;
+}
+
+.tile {
+  background-color: rgb(112, 169, 161);
+}
+.tile-4,
+.tile-3,
+.tile-2 {
+  display: none;
+}

@@ -16,7 +16,7 @@ const stop = document.getElementById('stop');
 let deadline = new Date(Date.now() + 1000 * 10);
 let remaining = 1000 *  10;
 
-let perf =  performance.now();
+
 
 
 const getRemainingTime = (remainder)=>{
