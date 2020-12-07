@@ -44,7 +44,7 @@ const startClock = ()=>{
    // Initialize the clock - avoid delay
     const time = getRemainingTime(remaining);
     
-    timer.innerHTML = `${time.minutes < 10 ? '0' + time.minutes : time.minutes}:${time.seconds < 10 ?  '0'+ time.seconds  : time.seconds}`;
+    timer.innerHTML = `<span>${time.minutes < 10 ? '0' + time.minutes : time.minutes}:${time.seconds < 10 ?  '0'+ time.seconds  : time.seconds}</span>`;
 
 
     timeInterval = setInterval(() => {
@@ -52,7 +52,7 @@ const startClock = ()=>{
         remaining-= 1000;
 
         const time = getRemainingTime(remaining);
-        timer.innerHTML = `${time.minutes < 10 ? '0' + time.minutes : time.minutes}:${time.seconds < 10 ?  '0'+ time.seconds  : time.seconds}`;
+        timer.innerHTML = `<span>${time.minutes < 10 ? '0' + time.minutes : time.minutes}:${time.seconds < 10 ?  '0'+ time.seconds  : time.seconds}</span>`;
         
         console.log(time)
 
@@ -86,8 +86,8 @@ const rest = ()=>{
           remaining-= 1000;
   
           const time = getRemainingTime(remaining);
-          timer.innerHTML = `${time.minutes < 10 ? '0' + time.minutes : time.minutes}:${time.seconds < 10 ?  '0'+ time.seconds  : time.seconds}`;
-       
+        timer.innerHTML = `<span>${time.minutes < 10 ? '0' + time.minutes : time.minutes}:${time.seconds < 10 ?  '0'+ time.seconds  : time.seconds}</span>`;
+          
           if (time.milisecondsLeft < 0) {
             clearInterval(timeInterval);
          
@@ -115,8 +115,8 @@ const longPause = ()=>{
     remaining-= 1000;
 
     const time = getRemainingTime(remaining);
-    timer.innerHTML = `${time.minutes < 10 ? '0' + time.minutes : time.minutes}:${time.seconds < 10 ?  '0'+ time.seconds  : time.seconds}`;
- 
+    timer.innerHTML = `<span>${time.minutes < 10 ? '0' + time.minutes : time.minutes}:${time.seconds < 10 ?  '0'+ time.seconds  : time.seconds}</span>`;
+    
     if (time.milisecondsLeft < 0) {
       clearInterval(timeInterval);
       

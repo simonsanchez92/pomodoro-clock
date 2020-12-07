@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,11 +7,28 @@
 
 body {
   display: flex;
-  background: rgb(112, 169, 161);
+  background: #c55e5e;
+  color: #eee;
+  font-family: "Poppins", sans-serif;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   height: 100vh;
+}
+
+h1 {
+  margin: 20px 0;
+  font-size: 45px;
+}
+.app {
+  /* border: 2px solid black; */
+  width: 800px;
+  margin-top: 20px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .clock-container {
@@ -47,47 +66,27 @@ body {
   animation: 1s pulse infinite ease-in-out;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+.clock-title {
+  font-size: 30px;
 }
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.045);
-  }
-
-  100% {
-    transform: scale(1);
-  }
+.timer span {
+  font-size: 24px;
 }
-/* .spinner {
-  content: "";
-  width: 10px;
-  height: 10px;
-  position: absolute;
-  top: -10px;
-  right: 50%;
-  border-radius: 50%;
-  background-color: red;
-} */
 
 .study-sessions {
-  margin: 20px;
+  /* margin: 20px; */
   padding: 10px 0;
-  width: 180px;
+  width: 600px;
+  height: 150px;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 2px solid #eeeeee;
+  /* border: 2px solid #eeeeee; */
 }
 .study-sessions h3 {
-  border-bottom: 2px solid #eeeeee;
+  /* border-bottom: 2px solid #eeeeee; */
   color: #eeeeee;
   font-size: 24px;
   width: 100%;
@@ -106,6 +105,25 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.tomato img {
+  width: 100%;
+  animation: grow 0.4s ease-in;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.045);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 @keyframes grow {
   0% {
     transform: scale(0.8);
@@ -116,9 +134,4 @@ body {
   100% {
     background: none;
   }
-}
-
-.tomato img {
-  width: 100%;
-  animation: grow 0.4s ease-in;
 }
