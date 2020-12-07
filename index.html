@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pomodoro Clock</title>
     <link rel="stylesheet" href="./style.css">
+    <script src="https://kit.fontawesome.com/28240eb085.js" crossorigin="anonymous"></script>
 </head>
 <body>
     
@@ -21,18 +22,21 @@
                 <span>00:10</span>
             </div>
             <div id="controls">
-                <button id='play'>Play</button>
-                <button id='stop'>Stop</button>
+                <button id='play'><i class="fas fa-play"></i></button>
+                <button id='stop'><i class="fas fa-power-off"></i></button>
             </div>
         </div>
     </div>
 
-    <div class="tomato-container">
-        <div class="tile tile-1"></div>
-        <div class="tile tile-2"></div>
-        <div class="tile tile-3"></div>
-        <div class="tile tile-4"></div>
+    <div class="study-sessions">
+        
+        <h3>Study Sessions <span id='session-count'>0/4</span></h3>
+        
+        <div class="tomatoes-container" id='tomatoes-container'> </div>
+    
     </div>
+    
+   
     <script src="./script.js"></script>
 </body>
 </html>

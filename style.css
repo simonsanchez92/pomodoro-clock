@@ -13,7 +13,7 @@ body {
 }
 
 .clock-container {
-  border: 10px solid #eeeeee57;
+  /* border: 10px solid #eeeeee57; */
   width: 300px;
   height: 300px;
   border-radius: 50%;
@@ -36,13 +36,33 @@ body {
   bottom: -10px;
   left: -10px;
   border-radius: 50%;
-  border-top-color: red;
-  /* animation: 2s spin infinite ease-in-out; */
+  border-color: rgb(228, 63, 63);
+}
+.clock-container.animate:before {
+  animation: 1s pulse infinite ease-in-out;
+}
+
+.clock-container.long-rest:before {
+  border-color: blue;
+  animation: 1s pulse infinite ease-in-out;
 }
 
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.045);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }
 /* .spinner {
@@ -56,23 +76,49 @@ body {
   background-color: red;
 } */
 
-.tomato-container {
-  background-image: url("./img/tomato.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  height: 50px;
-  width: 50px;
+.study-sessions {
+  margin: 20px;
+  padding: 10px 0;
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #eeeeee;
+}
+.study-sessions h3 {
+  border-bottom: 2px solid #eeeeee;
+  color: #eeeeee;
+  font-size: 24px;
+  width: 100%;
+  padding: 5px 0;
+  text-align: center;
+}
+.tomatoes-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.tomato {
+  height: 60px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@keyframes grow {
+  0% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.18);
+  }
+  100% {
+    background: none;
+  }
 }
 
-.tile {
-  background-color: rgb(112, 169, 161);
-}
-.tile-4,
-.tile-3,
-.tile-2 {
-  display: none;
+.tomato img {
+  width: 100%;
+  animation: grow 0.4s ease-in;
 }
