@@ -73,6 +73,20 @@ h1 {
   font-size: 24px;
 }
 
+#play,
+#stop {
+  cursor: pointer;
+  background: 0;
+  border: 0;
+  color: #eee;
+  font-size: 2rem;
+}
+
+#play:active,
+#stop:active {
+  transform: scale(0.9);
+}
+
 .study-sessions {
   /* margin: 20px; */
   padding: 10px 0;
