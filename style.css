@@ -125,6 +125,46 @@ h1 {
   animation: grow 0.4s ease-in;
 }
 
+.settings {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+.session-length-container,
+.break-length-container {
+  border: 4px solid #eeeeee;
+  width: 200px;
+  margin: 20px;
+  padding: 20px 10px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.session-length-controllers,
+.break-length-controllers {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+}
+.session-length-controllers i,
+.break-length-controllers i {
+  cursor: pointer;
+  border: 2px solid #eeeeee;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 2rem;
+}
+
+.session-length-controllers span,
+.break-length-controllers span {
+  font-size: 1.5rem;
+}
+
 @keyframes pulse {
   0% {
     transform: scale(1);
