@@ -25,70 +25,29 @@ const breakLength = document.getElementById("break-length");
 
 
 let timers = {
-    pomodoro: 1 * 60,
-    session: 1 * 60,
-    break: 5 * 60
+    pomodoro: 1,
+    session: 1 ,
+    break: 5,
+    long: 2,
+    rounds: 0
 }
 
 let isRunning = false;
+let sessionLeft = timers.session * 60;
+let breakLeft = timers.break * 60;
+let longBreakLeft = timers.long * 60;
+
 
 window.onload = ()=>{
-    sessionLength.textContent = timers.session / 60;
-    breakLength.textContent = timers.break / 60;
+    sessionLength.textContent = timers.session ;
+    breakLength.textContent = timers.break ;
 
-   let timeLeft= getRemainingTime(timers.session);
+   let timeLeft= getRemainingTime(timers.session * 60);
     timer.innerHTML = `<span>${timeLeft.minutes < 10 ? '0' + timeLeft.minutes : timeLeft.minutes}:${timeLeft.seconds < 10 ? '0'+timeLeft.seconds : timeLeft.seconds}</span>`;
- 
+
+   sessions.textContent = `${timers.rounds}/4`
 
 }
-
-
-addSession.addEventListener('click', ()=>{
-    if((timers.session /60) < 60){
-        timers.session+=60;
-        let timeLeft= getRemainingTime(timers.session);
-
-        sessionLength.textContent = timeLeft.minutes;
-    }
-    
-});
-
-substractSession.addEventListener('click', ()=>{
-    if((timers.session /60) > 1){
-        timers.session-=60;
-
-        let timeLeft= getRemainingTime(timers.session);
-
-        sessionLength.textContent = timeLeft.minutes;
-    }
-});
-
-addBreak.addEventListener('click', ()=>{
-    if((timers.break / 60) < 60){
-        timers.break+=60;
-
-        let timeLeft= getRemainingTime(timers.break);
-
-        breakLength.textContent = timeLeft.minutes;
-    
-    }
-});
-
-substractBreak.addEventListener('click', ()=>{
-    if((timers.break / 60) > 1){
-        timers.break-=60;
-        let timeLeft= getRemainingTime(timers.break);
-
-        breakLength.textContent = timeLeft.minutes;
-    }
-});
-
-
-
-
-
-
-
 
 
 
@@ -99,80 +58,118 @@ let interval;
 
 const getRemainingTime = (timeLeft)=>{
   
-    // let remaining = timeLeft * 60;
+     let remaining = timeLeft;
 
-    const seconds = Math.floor(timeLeft % 60);
-    const minutes = Math.floor( timeLeft / 60);
+    const seconds = Math.floor(remaining % 60);
+    const minutes = Math.floor( remaining / 60);
 
     return {seconds, minutes}
 }
 
 
-const go = ()=>{
+const go = (mode)=>{
     
-  
-        if(timers.pomodoro <= 0){
+    
+    if(mode == "break"){
+        const timeLeft = getRemainingTime(breakLeft);
+        console.log(timeLeft)
+        timer.innerHTML = `<span>${timeLeft.minutes < 10 ? '0' + timeLeft.minutes : timeLeft.minutes}:${timeLeft.seconds < 10 ? '0'+timeLeft.seconds : timeLeft.seconds}</span>`;
+        
+        title.textContent = "Rest...";
+    }
 
-            timers.break--;
-            const timeLeft = getRemainingTime(timers.break);
-            timer.innerHTML = `<span>${timeLeft.minutes < 10 ? '0' + timeLeft.minutes : timeLeft.minutes}:${timeLeft.seconds < 10 ? '0'+timeLeft.seconds : timeLeft.seconds}</span>`;
-            
-            title.textContent = "Rest...";
+    if(mode == "session"){
+        const timeLeft = getRemainingTime(sessionLeft);
+        timer.innerHTML = `<span>${timeLeft.minutes < 10 ? '0' + timeLeft.minutes : timeLeft.minutes}:${timeLeft.seconds < 10 ? '0'+timeLeft.seconds : timeLeft.seconds}</span>`;
+        title.textContent = "Go!";
+    }
 
-            // if(timeLeft.seconds <= 0){
-            //     timers.pomodoro = timers.session * 60;
-            //     // clearInterval(interval);
-            //     // isRunning = false;
-            // }
-        }else{
-            timers.pomodoro--;
-            const timeLeft = getRemainingTime(timers.pomodoro);
-            timer.innerHTML = `<span>${timeLeft.minutes < 10 ? '0' + timeLeft.minutes : timeLeft.minutes}:${timeLeft.seconds < 10 ? '0'+timeLeft.seconds : timeLeft.seconds}</span>`;
-            title.textContent = "Go!";
-            
-            // if(timeLeft.seconds <= 0){
-            //     clearInterval(interval);
-            //     isRunning = false;
-            // }
-        }
-
-      
-
- 
- 
-    // secondsRemaining--;
-    // const time = getRemainingTime(secondsRemaining);
+    if(mode == "longBreak"){
+        const timeLeft = getRemainingTime(longBreakLeft);
+        timer.innerHTML = `<span>${timeLeft.minutes < 10 ? '0' + timeLeft.minutes : timeLeft.minutes}:${timeLeft.seconds < 10 ? '0'+timeLeft.seconds : timeLeft.seconds}</span>`;
+        title.textContent = "Long break";
+    }
+       
+        
+    }
 
 
-}
 
 
 //When play button is pressed...
 
 const startClock = ()=>{
-    // playBtn.disabled = true;
+
     interval = setInterval(() => {
-        if(timers.break <= 0){
-            timers.break = +breakLength.textContent;
-            timers.pomodoro = 7;
+      
+        if(sessionLeft <= 0){
+
+            if(timers.rounds == 4){
+                go("longBreak");
+                longBreakLeft--;
+
+                if(longBreakLeft <=0){
+                tomatoes.innerHTML = '';
+
+                    sessionLeft = timers.session * 60;
+                    longBreakLeft = timers.long * 60;
+
+                    timers.rounds = 0;
+                    sessions.textContent = `${timers.rounds}/4`;
+                     clockContainer.classList.remove('rest');
+
+                }
+            }else{
+                go("break");
+                breakLeft--;
+    
+                if(breakLeft <=0){
+                    sessionLeft = timers.session * 60;
+                  clockContainer.classList.remove('rest');
+
+                }
+            }
+
+           
+        }else{
+            go("session");
+            sessionLeft--;
+
+            if(sessionLeft <=0){
+                timers.rounds++;
+                sessions.textContent = `${timers.rounds}/4`;
+                tomatoes.innerHTML += `<div class='tomato'><img src='./img/tomato.png'/></div>`;
+
+                breakLeft = timers.break * 60;
+                clockContainer.classList.add('rest');
+            }
         }
-        go();
 
       
-    }, 1000);
+    }, 100);
+
+ 
 }
 
 const stop = ()=>{
-   
+
     clearInterval(interval);
-    timers.pomodoro = timers.session;
-    const timeLeft = getRemainingTime(timers.pomodoro);
+    sessionLeft = timers.session * 60;
+    breakLeft = timers.break * 60;
+    const timeLeft = getRemainingTime(sessionLeft);
 
     playBtn.innerHTML = `<i class="fas fa-play"></i>`;
     title.textContent = "Ready?";
 
     timer.innerHTML = `<span>${timeLeft.minutes < 10 ? '0' + timeLeft.minutes : timeLeft.minutes}:${timeLeft.seconds < 10 ? '0'+timeLeft.seconds : timeLeft.seconds}</span>`;
+    
+    timers.rounds = 0;
+    sessions.textContent = `${timers.rounds}/4`
+    
     isRunning = false;
+    clockContainer.classList.remove('rest');
+    
+    clockContainer.classList.remove('animate');
 
 
 }
@@ -182,8 +179,6 @@ const stop = ()=>{
 stopBtn.addEventListener('click', stop);
 
 playBtn.addEventListener('click', ()=>{
-  
-  
     if(isRunning ){
         clearInterval(interval);
         title.textContent = "Paused"
@@ -191,6 +186,7 @@ playBtn.addEventListener('click', ()=>{
         playBtn.innerHTML = `<i class="fas fa-play"></i>`;
       
         isRunning = false;
+        clockContainer.classList.remove('animate');
        
 
     }else{
@@ -199,9 +195,43 @@ playBtn.addEventListener('click', ()=>{
         playBtn.innerHTML = `<i class="fas fa-pause"></i>`;
         isRunning = true;
         startClock();
-        console.log(isRunning)
+        clockContainer.classList.add('animate');
         
     }
 
+});
+
+addSession.addEventListener('click', ()=>{
+    if(timers.session  < 60){
+        timers.session++;
+        sessionLength.textContent = timers.session;
+    }
+    
+});
+
+substractSession.addEventListener('click', ()=>{
+    if(timers.session > 1){
+        timers.session--;
+        sessionLength.textContent = timers.session;
+
+    }
+});
+
+addBreak.addEventListener('click', ()=>{
+    if(timers.break < 20){
+        timers.break++;
+        breakLeft = timers.break * 60
+        breakLength.textContent =  timers.break;
+
+    }
+});
+
+substractBreak.addEventListener('click', ()=>{
+    if(timers.break  > 1){
+        timers.break--;
+        breakLeft = timers.break * 60
+        breakLength.textContent =  timers.break;
+    }
+  
 });
 
